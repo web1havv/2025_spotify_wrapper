@@ -1,5 +1,5 @@
-// Vercel Serverless Function
-const https = require('https');
+// Vercel Serverless Function (ES Module)
+import https from 'https';
 
 function makeGraphQLRequest(query, variables) {
   return new Promise((resolve, reject) => {
@@ -34,7 +34,7 @@ function makeGraphQLRequest(query, variables) {
   });
 }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -237,4 +237,4 @@ module.exports = async function handler(req, res) {
       error: error.message || 'Internal server error'
     });
   }
-};
+}
