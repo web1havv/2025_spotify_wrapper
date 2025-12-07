@@ -15,7 +15,11 @@ function App() {
     setUsername(leetcodeUsername);
 
     try {
-      const response = await fetch(`/api/leetcode/wrapped/${leetcodeUsername}?year=2025`);
+      const response = await fetch(`/api/leetcode/wrapped/${leetcodeUsername}?year=2025`, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
       const result = await response.json();
 
       if (!result.success) {
