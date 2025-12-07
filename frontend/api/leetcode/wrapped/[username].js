@@ -1,5 +1,5 @@
 // Vercel Serverless API Function
-import axios from 'axios';
+const axios = require('axios');
 
 const LEETCODE_API_URL = 'https://leetcode.com/graphql';
 
@@ -16,7 +16,7 @@ async function makeGraphQLRequest(query, variables = {}) {
   return response.data;
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');

@@ -20,6 +20,14 @@ function App() {
           'Content-Type': 'application/json',
         }
       });
+      
+      // Check if response is ok
+      if (!response.ok) {
+        const text = await response.text();
+        console.error('API Error:', text);
+        throw new Error(`API returned ${response.status}: ${text.substring(0, 100)}`);
+      }
+      
       const result = await response.json();
 
       if (!result.success) {
