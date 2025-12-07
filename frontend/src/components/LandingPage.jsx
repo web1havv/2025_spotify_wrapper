@@ -72,8 +72,11 @@ function LandingPage({ onSubmit, error }) {
         </form>
 
         {/* Footer */}
-        <div className="mt-12 text-white text-sm uppercase tracking-widest opacity-60">
+        <div className="mt-12 text-white text-sm uppercase tracking-widest opacity-60 space-y-2">
           <p>Analyze your 2025 LeetCode journey</p>
+          <div className="border-t border-white pt-3 mt-3">
+            <p className="text-xs">Made with ♥ by webhavvv</p>
+          </div>
         </div>
       </div>
     </div>

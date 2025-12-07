@@ -262,8 +262,11 @@ Ready for: ${topCompany}
         )}
 
         {/* Footer */}
-        <div className="mt-12 text-center text-mono-gray uppercase tracking-widest text-xs">
+        <div className="mt-12 text-center text-white uppercase tracking-widest text-xs space-y-2">
           <p>LeetCode Wrapped {data.year}</p>
+          <div className="border-t-2 border-white pt-4 mt-4">
+            <p className="text-sm">Made with ♥ by webhavvv</p>
+          </div>
         </div>
       </div>
     </div>
