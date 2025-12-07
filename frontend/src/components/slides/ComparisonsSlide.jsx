@@ -27,45 +27,40 @@ function ComparisonsSlide({ data }) {
       label: 'Problems Solved',
       user: userStats.problemsPerYear,
       avg: avgUser.problemsPerYear,
-      multiplier: (userStats.problemsPerYear / avgUser.problemsPerYear).toFixed(1),
       icon: '█'
     },
     {
       label: 'Active Days',
       user: userStats.activeDaysPerYear,
       avg: avgUser.activeDaysPerYear,
-      multiplier: (userStats.activeDaysPerYear / avgUser.activeDaysPerYear).toFixed(1),
       icon: '▓'
     },
     {
       label: 'Longest Streak',
       user: userStats.longestStreak,
       avg: avgUser.longestStreak,
-      multiplier: (userStats.longestStreak / avgUser.longestStreak).toFixed(1),
       icon: '▒'
     },
     {
       label: 'Hard Problems %',
-      user: userStats.hardPercentage.toFixed(0),
+      user: Math.round(userStats.hardPercentage),
       avg: avgUser.hardPercentage,
-      multiplier: (userStats.hardPercentage / avgUser.hardPercentage).toFixed(1),
-      icon: '░',
-      suffix: '%'
+      icon: '░'
+    },
+    {
+      label: 'Topics Practiced',
+      user: userStats.topicsCount,
+      avg: avgUser.topicsCount,
+      icon: '■'
     }
   ];
 
-  const problemsPerDay = userStats.activeDaysPerYear > 0 
-    ? (userStats.problemsPerYear / userStats.activeDaysPerYear).toFixed(1) 
-    : 0;
-  
-  const avgProblemsPerDay = 0.8; // Average user solves less than 1 per day
-  
   const topPercentile = calculatePercentile(userStats.problemsPerYear);
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-8">
-      <div className="max-w-6xl w-full">
-        <h2 className="text-5xl font-black text-white text-center mb-4 animate-fade-in uppercase tracking-wider">
+      <div className="max-w-7xl w-full">
+        <h2 className="text-6xl font-black text-white text-center mb-4 animate-fade-in uppercase tracking-wider">
           You vs Average User
         </h2>
         <p className="text-center text-white mb-12 uppercase tracking-widest text-sm">
@@ -73,89 +68,115 @@ function ComparisonsSlide({ data }) {
         </p>
 
         {/* Top Percentile Banner */}
-        <div className="border-8 border-white bg-white text-black p-8 mb-12 text-center animate-scale-in">
+        <div className="border-8 border-white bg-white text-black p-12 mb-12 text-center animate-scale-in">
           <div className="text-sm uppercase tracking-widest mb-2">Your Rank</div>
-          <div className="text-7xl font-black mb-2">
+          <div className="text-9xl font-black mb-2">
             TOP {topPercentile}%
           </div>
-          <div className="text-xl uppercase tracking-wider">
+          <div className="text-2xl uppercase tracking-wider">
             of LeetCode users in {data.year}
           </div>
         </div>
 
-        {/* Comparison Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          {comparisons.map((comp, index) => (
-            <motion.div
-              key={comp.label}
-              className="border-4 border-white text-white p-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <div className="flex items-center justify-between mb-4">
-                <div className="text-5xl font-black">{comp.icon}</div>
-                <div className="text-right">
-                  <div className="text-sm uppercase tracking-wider opacity-60">
-                    {comp.label}
+        {/* Bar Graph Comparisons */}
+        <div className="space-y-8">
+          {comparisons.map((comp, index) => {
+            const maxValue = Math.max(comp.user, comp.avg) * 1.2; // Add 20% padding
+            const userPercentage = (comp.user / maxValue) * 100;
+            const avgPercentage = (comp.avg / maxValue) * 100;
+            const multiplier = comp.avg > 0 ? (comp.user / comp.avg).toFixed(1) : 0;
+            
+            return (
+              <motion.div
+                key={comp.label}
+                className="border-4 border-white p-8"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                {/* Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-4">
+                    <div className="text-6xl font-black text-white">{comp.icon}</div>
+                    <div className="text-3xl font-black text-white uppercase tracking-wide">
+                      {comp.label}
+                    </div>
                   </div>
+                  {multiplier > 0 && (
+                    <div className="text-4xl font-black text-white">
+                      {multiplier > 1 ? `${multiplier}x` : `${multiplier}x`}
+                    </div>
+                  )}
                 </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div>
-                  <div className="text-xs uppercase tracking-wider opacity-60 mb-1">You</div>
-                  <div className="text-4xl font-black">
-                    {comp.user}{comp.suffix || ''}
-                  </div>
-                </div>
-                <div>
-                  <div className="text-xs uppercase tracking-wider opacity-60 mb-1">Average</div>
-                  <div className="text-4xl font-black opacity-50">
-                    {comp.avg}{comp.suffix || ''}
-                  </div>
-                </div>
-              </div>
 
-              <div className="border-t-2 border-white pt-4">
-                <div className="text-2xl font-black">
-                  {comp.multiplier > 1 ? `${comp.multiplier}x better!` : 
-                   comp.multiplier < 1 ? `Keep grinding!` : 
-                   'Right on average!'}
+                {/* Bar Graphs */}
+                <div className="space-y-6">
+                  {/* You */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-xl font-black text-white uppercase tracking-wider">
+                        YOU
+                      </div>
+                      <div className="text-3xl font-black text-white">
+                        {comp.user}
+                      </div>
+                    </div>
+                    <div className="h-16 bg-mono-darker border-4 border-white relative overflow-hidden">
+                      <motion.div
+                        className="absolute inset-y-0 left-0 bg-white flex items-center justify-end px-6"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${userPercentage}%` }}
+                        transition={{ duration: 1, delay: index * 0.1 + 0.2 }}
+                      >
+                        <div className="text-black text-2xl font-black">
+                          █
+                        </div>
+                      </motion.div>
+                    </div>
+                  </div>
+
+                  {/* Average User */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-xl font-black text-white uppercase tracking-wider opacity-60">
+                        AVERAGE USER
+                      </div>
+                      <div className="text-3xl font-black text-white opacity-60">
+                        {comp.avg}
+                      </div>
+                    </div>
+                    <div className="h-16 bg-mono-darker border-4 border-white relative overflow-hidden">
+                      <motion.div
+                        className="absolute inset-y-0 left-0 border-4 border-white flex items-center justify-end px-6"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${avgPercentage}%` }}
+                        transition={{ duration: 1, delay: index * 0.1 + 0.3 }}
+                      >
+                        <div className="text-white text-2xl font-black">
+                          ░
+                        </div>
+                      </motion.div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+
+                {/* Verdict */}
+                <div className="mt-6 border-t-4 border-white pt-4">
+                  <div className="text-2xl font-black text-white text-center uppercase tracking-wider">
+                    {multiplier > 1.5 ? '■ Crushing It!' : 
+                     multiplier > 1 ? '▓ Above Average!' : 
+                     multiplier === 1 ? '▒ Right On Track!' : 
+                     '░ Keep Grinding!'}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Speed Metric */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="border-4 border-white text-white p-8 text-center">
-            <div className="text-sm uppercase tracking-widest mb-2">Your Speed</div>
-            <div className="text-6xl font-black mb-2">{problemsPerDay}</div>
-            <div className="text-lg uppercase tracking-wider">Problems per day</div>
-            {problemsPerDay > avgProblemsPerDay && (
-              <div className="mt-4 text-xl font-black">
-                {(problemsPerDay / avgProblemsPerDay).toFixed(1)}x faster than average!
-              </div>
-            )}
-          </div>
-
-          <div className="border-4 border-white text-white p-8 text-center">
-            <div className="text-sm uppercase tracking-widest mb-2">Topic Mastery</div>
-            <div className="text-6xl font-black mb-2">{userStats.topicsCount}</div>
-            <div className="text-lg uppercase tracking-wider">Topics practiced</div>
-            {userStats.topicsCount > avgUser.topicsCount && (
-              <div className="mt-4 text-xl font-black">
-                {Math.round((userStats.topicsCount / avgUser.topicsCount) * 100)}% more diverse!
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Fun Fact */}
-        <div className="mt-12 border-4 border-white bg-white text-black p-8 text-center">
-          <div className="text-2xl font-black uppercase tracking-wider">
+        {/* Summary */}
+        <div className="mt-12 border-8 border-white bg-white text-black p-12 text-center">
+          <div className="text-4xl font-black uppercase tracking-wider">
             {getFunComparison(userStats, avgUser)}
           </div>
         </div>
@@ -194,4 +215,3 @@ function getFunComparison(user, avg) {
 }
 
 export default ComparisonsSlide;
-
