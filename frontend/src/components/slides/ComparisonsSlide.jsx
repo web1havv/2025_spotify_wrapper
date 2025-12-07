@@ -83,8 +83,8 @@ function ComparisonsSlide({ data }) {
           </div>
         </div>
 
-        {/* Comparison Grid with Clean Vertical Bars */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+        {/* Comparison Grid with Bigger Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {comparisons.map((comp, index) => {
             const maxVal = Math.max(comp.user, comp.avg);
             const userHeight = (comp.user / maxVal) * 100;
@@ -93,56 +93,59 @@ function ComparisonsSlide({ data }) {
             return (
               <motion.div
                 key={comp.label}
-                className="border-4 border-white p-6 animate-slide-up"
+                className="border-8 border-white p-10 animate-slide-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* Icon & Label */}
-                <div className="text-center mb-6">
-                  <div className="text-5xl font-black text-white mb-3">{comp.icon}</div>
-                  <div className="text-xs uppercase tracking-widest text-white opacity-80">
+                <div className="text-center mb-8">
+                  <div className="text-7xl font-black text-white mb-4">{comp.icon}</div>
+                  <div className="text-lg uppercase tracking-widest text-white font-bold">
                     {comp.label}
                   </div>
                 </div>
                 
-                {/* Clean Vertical Bars */}
-                <div className="flex items-end justify-center gap-6 h-40 mb-6">
+                {/* Vertical Bars */}
+                <div className="flex items-end justify-center gap-12 mb-8">
                   {/* User Bar */}
-                  <div className="flex flex-col items-center w-16">
-                    <div className="text-2xl font-black text-white mb-2">
+                  <div className="flex flex-col items-center w-24">
+                    <div className="text-4xl font-black text-white mb-4">
                       {comp.user}{comp.suffix || ''}
                     </div>
-                    <div className="w-full h-32 border-4 border-white relative">
+                    <div className="w-full h-48 border-8 border-white relative bg-black">
                       <div 
                         className="absolute bottom-0 left-0 right-0 bg-white transition-all duration-1000 ease-out"
                         style={{ height: `${userHeight}%` }}
                       ></div>
                     </div>
-                    <div className="text-xs uppercase tracking-wider text-white mt-2 font-bold">
+                    <div className="text-lg uppercase tracking-wider text-white mt-4 font-black">
                       YOU
                     </div>
                   </div>
                   
                   {/* Average Bar */}
-                  <div className="flex flex-col items-center w-16">
-                    <div className="text-2xl font-black text-white mb-2 opacity-50">
+                  <div className="flex flex-col items-center w-24">
+                    <div className="text-4xl font-black text-white mb-4 opacity-50">
                       {comp.avg}{comp.suffix || ''}
                     </div>
-                    <div className="w-full h-32 border-4 border-white relative opacity-40">
+                    <div className="w-full h-48 border-8 border-white relative bg-black opacity-40">
                       <div 
                         className="absolute bottom-0 left-0 right-0 bg-white transition-all duration-1000 ease-out"
                         style={{ height: `${avgHeight}%` }}
                       ></div>
                     </div>
-                    <div className="text-xs uppercase tracking-wider text-white mt-2 opacity-50">
+                    <div className="text-lg uppercase tracking-wider text-white mt-4 opacity-50 font-black">
                       AVG
                     </div>
                   </div>
                 </div>
 
                 {/* Multiplier */}
-                <div className="border-t-4 border-white pt-4 text-center">
-                  <div className="text-3xl font-black text-white">
+                <div className="border-t-8 border-white pt-6 text-center">
+                  <div className="text-5xl font-black text-white">
                     {parseFloat(comp.multiplier) >= 1 ? `${comp.multiplier}x` : comp.multiplier}
+                  </div>
+                  <div className="text-sm uppercase tracking-wider text-white mt-2 opacity-80">
+                    {parseFloat(comp.multiplier) > 1 ? 'BETTER' : parseFloat(comp.multiplier) < 1 ? 'KEEP GOING' : 'ON PAR'}
                   </div>
                 </div>
               </motion.div>
