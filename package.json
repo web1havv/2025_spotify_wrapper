@@ -1,11 +1,5 @@
 {
   "name": "leetcode-wrapped",
   "version": "1.0.0",
-  "description": "A Spotify Wrapped-style year wrap-up for your LeetCode journey",
-  "scripts": {
-    "build": "cd frontend && npm install && npm run build && cp -r dist ../dist"
-  },
-  "keywords": ["leetcode", "wrapped", "year-in-review"],
-  "author": "",
-  "license": "MIT"
+  "private": true
 }
