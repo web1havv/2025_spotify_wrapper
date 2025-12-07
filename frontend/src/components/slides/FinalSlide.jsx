@@ -23,67 +23,42 @@ Ready for: ${topCompany}
 
 #LeetCodeWrapped #2025 #CodingJourney`;
 
-  const handleShare = async () => {
+  const handleShare = () => {
+    // Just copy text and show preview
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareText);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 5000);
+    }
+    setShowSharePreview(true);
+  };
+
+  const handleDownloadImage = async () => {
     setIsGeneratingImage(true);
     
     try {
-      // Generate image from share card
+      // Capture the visible preview card
       const canvas = await html2canvas(shareCardRef.current, {
         backgroundColor: '#ffffff',
         scale: 2,
         logging: false,
-        width: 1200,
-        height: 630,
       });
       
-      // Convert to blob
-      canvas.toBlob(async (blob) => {
-        // Copy text to clipboard first
-        await navigator.clipboard.writeText(shareText);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 5000);
-        
-        // Try to copy image to clipboard (works in modern browsers)
-        if (navigator.clipboard && window.ClipboardItem) {
-          try {
-            await navigator.clipboard.write([
-              new ClipboardItem({
-                'image/png': blob
-              })
-            ]);
-            alert('✅ Image & text copied! Paste on LinkedIn (Ctrl+V / Cmd+V) 📋');
-          } catch (err) {
-            // Fallback: download image
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.download = 'leetcode-wrapped-2025.png';
-            link.href = url;
-            link.click();
-            URL.revokeObjectURL(url);
-            alert('✅ Text copied & image downloaded! Upload image to LinkedIn 📋');
-          }
-        } else {
-          // Fallback for older browsers
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement('a');
-          link.download = 'leetcode-wrapped-2025.png';
-          link.href = url;
-          link.click();
-          URL.revokeObjectURL(url);
-          alert('✅ Text copied & image downloaded! Upload image to LinkedIn 📋');
-        }
-        
+      // Convert to blob and download
+      canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = `leetcode-wrapped-2025-${data.username}.png`;
+        link.href = url;
+        link.click();
+        URL.revokeObjectURL(url);
+        alert('✅ Image downloaded! Upload to LinkedIn 📋');
         setIsGeneratingImage(false);
-        setShowSharePreview(true);
       });
     } catch (error) {
       console.error('Error generating image:', error);
-      // Fallback: just copy text
-      navigator.clipboard.writeText(shareText);
-      setCopied(true);
-      alert('✅ Text copied to clipboard! (Image generation failed)');
+      alert('❌ Error generating image. Please try again.');
       setIsGeneratingImage(false);
-      setShowSharePreview(true);
     }
   };
 
@@ -94,77 +69,6 @@ Ready for: ${topCompany}
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-8 relative">
-      {/* Hidden Share Card for Screenshot */}
-      <div 
-        ref={shareCardRef}
-        className="fixed -left-[9999px] top-0 w-[1200px] h-[630px] bg-white p-16"
-        style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
-      >
-        <div className="h-full flex flex-col">
-          {/* Header with animated scientist */}
-          <div className="mb-8 relative">
-            <h1 className="text-7xl font-black text-black mb-4 tracking-tighter uppercase">
-              MY 2025 LEETCODE WRAPPED
-            </h1>
-            <div className="h-2 w-full bg-black"></div>
-            
-            {/* Scientist character icon */}
-            <div className="absolute -top-4 right-0 text-9xl">
-              {data.personality?.primary?.icon || '█'}
-            </div>
-          </div>
-
-          {/* Stats Grid */}
-          <div className="grid grid-cols-2 gap-6 mb-8">
-            <div className="border-8 border-black p-8 text-center">
-              <div className="text-8xl font-black text-black mb-2">
-                {data.summary.totalProblemsThisYear}
-              </div>
-              <div className="text-2xl font-bold uppercase tracking-wider">
-                PROBLEMS SOLVED
-              </div>
-            </div>
-            <div className="border-8 border-black p-8 text-center">
-              <div className="text-8xl font-black text-black mb-2">
-                {data.summary.activeDays}
-              </div>
-              <div className="text-2xl font-bold uppercase tracking-wider">
-                ACTIVE DAYS
-              </div>
-            </div>
-          </div>
-
-          {/* Details */}
-          <div className="space-y-4 text-black mb-auto">
-            <div className="flex items-center gap-4">
-              <div className="text-4xl font-black">■</div>
-              <div className="text-3xl font-bold">
-                {data.summary.longestStreak} day streak
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="text-4xl font-black">▓</div>
-              <div className="text-3xl font-bold">
-                Personality: {personality}
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="text-4xl font-black">▒</div>
-              <div className="text-3xl font-bold">
-                Ready for: {topCompany}
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="border-t-4 border-black pt-6">
-            <div className="text-2xl font-bold text-gray-600 text-center tracking-wider">
-              #LEETCODEWRAPPED #2025 #CODINGJOURNEY
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div className="max-w-5xl w-full">
         {!showSharePreview ? (
           // Main Summary View
@@ -249,8 +153,11 @@ Ready for: ${topCompany}
               </p>
             </div>
 
-            {/* Visual Preview Card */}
-            <div className="border-8 border-white bg-white text-black p-12 mb-8">
+            {/* Visual Preview Card - This will be screenshotted */}
+            <div 
+              ref={shareCardRef}
+              className="border-8 border-white bg-white text-black p-12 mb-8"
+            >
               <div className="text-left space-y-6">
                 <div className="border-b-4 border-black pb-6">
                   <div className="text-4xl font-black uppercase tracking-tight">
@@ -302,6 +209,14 @@ Ready for: ${topCompany}
             {/* Action Buttons */}
             <div className="flex flex-col md:flex-row gap-4 justify-center">
               <button
+                onClick={handleDownloadImage}
+                disabled={isGeneratingImage}
+                className="bg-white text-black font-bold text-xl px-12 py-6 uppercase tracking-widest hover:bg-mono-lightest transition-all disabled:opacity-50"
+              >
+                {isGeneratingImage ? 'Generating...' : 'Download Image'}
+              </button>
+
+              <button
                 onClick={handleLinkedInShare}
                 className="bg-white text-black font-bold text-xl px-12 py-6 uppercase tracking-widest hover:bg-mono-lightest transition-all"
               >
@@ -319,7 +234,7 @@ Ready for: ${topCompany}
                 onClick={handleShare}
                 className="border-4 border-white text-white font-bold text-xl px-12 py-6 uppercase tracking-widest hover:bg-white hover:text-black transition-all"
               >
-                Copy Again
+                Copy Text Again
               </button>
             </div>
 
