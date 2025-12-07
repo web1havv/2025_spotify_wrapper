@@ -63,7 +63,7 @@ function CompanySlide({ data }) {
           {companyRecommendations.slice(1, 5).map((company, index) => (
             <div
               key={company.company}
-              className="border-4 border-white p-6 animate-slide-up hover:bg-white hover:text-black transition-all group"
+              className="border-4 border-white text-white p-6 animate-slide-up hover:bg-white hover:text-black transition-all group"
               style={{ animationDelay: `${(index + 1) * 0.1}s` }}
             >
               <div className="text-3xl font-black mb-2 uppercase tracking-tight">
@@ -84,7 +84,7 @@ function CompanySlide({ data }) {
           ))}
         </div>
 
-        <div className="mt-8 text-center border-2 border-white p-4">
+        <div className="mt-8 text-center border-2 border-white text-white p-4">
           <div className="text-sm uppercase tracking-widest text-mono-light">
             Based on {data.topics.length} topics analyzed
           </div>

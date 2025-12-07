@@ -9,7 +9,7 @@ function AchievementsSlide({ data }) {
         </h2>
 
         {achievements.length === 0 ? (
-          <div className="text-center border-4 border-white p-12">
+          <div className="text-center border-4 border-white text-white p-12">
             <div className="text-6xl mb-4 font-black">░</div>
             <div className="text-2xl uppercase tracking-widest">
               Keep grinding - achievements await
@@ -20,7 +20,7 @@ function AchievementsSlide({ data }) {
             {achievements.map((achievement, index) => (
               <div
                 key={index}
-                className="border-4 border-white p-8 transform hover:scale-105 transition-all animate-scale-in hover:bg-white hover:text-black group"
+                className="border-4 border-white text-white p-8 transform hover:scale-105 transition-all animate-scale-in hover:bg-white hover:text-black group"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="text-6xl mb-4 font-black">{achievement.title.split(' ')[0]}</div>

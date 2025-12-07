@@ -59,15 +59,15 @@ function ActivitySlide({ data }) {
             <div className="text-xs uppercase tracking-wider font-bold">Best Month</div>
           </div>
 
-          <div className="border-4 border-white p-6 text-center">
-            <div className="text-5xl font-black text-white mb-2">
+          <div className="border-4 border-white text-white p-6 text-center">
+            <div className="text-5xl font-black mb-2">
               {monthlyActivity.filter(m => m.count > 0).length || 0}
             </div>
             <div className="text-xs text-mono-light uppercase tracking-wider">Active Months</div>
           </div>
 
-          <div className="border-4 border-white p-6 text-center">
-            <div className="text-5xl font-black text-white mb-2">
+          <div className="border-4 border-white text-white p-6 text-center">
+            <div className="text-5xl font-black mb-2">
               {totalThisYear || 0}
             </div>
             <div className="text-xs text-mono-light uppercase tracking-wider">Total {data.year}</div>

@@ -77,17 +77,17 @@ function DifficultySlide({ data }) {
 
         {/* Pie Chart Alternative - Circular Segments */}
         <div className="grid grid-cols-3 gap-4">
-          <div className="border-4 border-white p-8 text-center">
+          <div className="border-4 border-white text-white p-8 text-center">
             <div className="text-7xl font-black text-white mb-4">░</div>
             <div className="text-4xl font-black text-white mb-2">{difficulty.easy || 0}</div>
             <div className="text-sm uppercase tracking-wider text-mono-light">Easy</div>
           </div>
-          <div className="border-4 border-white p-8 text-center">
+          <div className="border-4 border-white text-white p-8 text-center">
             <div className="text-7xl font-black text-white mb-4">▒</div>
             <div className="text-4xl font-black text-white mb-2">{difficulty.medium || 0}</div>
             <div className="text-sm uppercase tracking-wider text-mono-light">Medium</div>
           </div>
-          <div className="border-4 border-white p-8 text-center">
+          <div className="border-4 border-white text-white p-8 text-center">
             <div className="text-7xl font-black text-white mb-4">▓</div>
             <div className="text-4xl font-black text-white mb-2">{difficulty.hard || 0}</div>
             <div className="text-sm uppercase tracking-wider text-mono-light">Hard</div>

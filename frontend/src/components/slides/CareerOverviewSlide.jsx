@@ -30,17 +30,17 @@ function CareerOverviewSlide({ data }) {
 
         {/* All-Time Difficulty */}
         <div className="grid grid-cols-3 gap-6 mb-12">
-          <div className="border-4 border-white p-10 text-center">
+          <div className="border-4 border-white text-white p-10 text-center">
             <div className="text-7xl font-black text-white mb-4">░</div>
             <div className="text-5xl font-black text-white mb-2">{difficulty.easy || 0}</div>
             <div className="text-lg uppercase tracking-wider text-mono-light">Easy</div>
           </div>
-          <div className="border-4 border-white p-10 text-center">
+          <div className="border-4 border-white text-white p-10 text-center">
             <div className="text-7xl font-black text-white mb-4">▒</div>
             <div className="text-5xl font-black text-white mb-2">{difficulty.medium || 0}</div>
             <div className="text-lg uppercase tracking-wider text-mono-light">Medium</div>
           </div>
-          <div className="border-4 border-white p-10 text-center">
+          <div className="border-4 border-white text-white p-10 text-center">
             <div className="text-7xl font-black text-white mb-4">▓</div>
             <div className="text-5xl font-black text-white mb-2">{difficulty.hard || 0}</div>
             <div className="text-lg uppercase tracking-wider text-mono-light">Hard</div>
@@ -50,7 +50,7 @@ function CareerOverviewSlide({ data }) {
         {/* Career Metrics */}
         <div className="grid grid-cols-2 gap-6">
           {ranking && (
-            <div className="border-4 border-white p-8 text-center">
+            <div className="border-4 border-white text-white p-8 text-center">
               <div className="text-sm uppercase tracking-widest text-mono-light mb-2">
                 Global Ranking
               </div>
@@ -59,7 +59,7 @@ function CareerOverviewSlide({ data }) {
               </div>
             </div>
           )}
-          <div className="border-4 border-white p-8 text-center">
+          <div className="border-4 border-white text-white p-8 text-center">
             <div className="text-sm uppercase tracking-widest text-mono-light mb-2">
               Acceptance Rate
             </div>

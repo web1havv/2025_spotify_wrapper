@@ -57,7 +57,7 @@ function LanguagesSlide({ data }) {
             return (
               <div
                 key={lang.language}
-                className="border-2 border-white p-6 animate-slide-up hover:bg-white hover:text-black transition-all group"
+                className="border-2 border-white text-white p-6 animate-slide-up hover:bg-white hover:text-black transition-all group"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="flex items-center justify-between mb-3">
@@ -84,7 +84,7 @@ function LanguagesSlide({ data }) {
         </div>
 
         {languages.length > 1 && (
-          <div className="mt-8 text-center border-2 border-white p-6">
+          <div className="mt-8 text-center border-2 border-white text-white p-6">
             <div className="text-xl uppercase tracking-widest">
               <span className="font-black text-3xl">{languages.length}</span> Languages Mastered
             </div>

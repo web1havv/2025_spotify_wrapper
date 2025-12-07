@@ -46,7 +46,7 @@ function PersonalitySlide({ data }) {
 
         {/* Secondary Personality */}
         {secondary && (
-          <div className="border-4 border-white p-8 mb-8 animate-fade-in">
+          <div className="border-4 border-white text-white p-8 mb-8 animate-fade-in">
             <div className="flex items-center gap-6">
               <div className="text-5xl">{secondary.icon}</div>
               <div className="flex-1">
@@ -66,7 +66,7 @@ function PersonalitySlide({ data }) {
 
         {/* Interesting Facts */}
         {interestingFacts && interestingFacts.length > 0 && (
-          <div className="border-4 border-white p-8">
+          <div className="border-4 border-white text-white p-8">
             <div className="text-2xl font-black text-white mb-6 uppercase tracking-wider text-center">
               Interesting Facts
             </div>

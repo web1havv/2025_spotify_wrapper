@@ -41,7 +41,7 @@ Ready for: ${topCompany}
           // Main Summary View
           <div className="text-center animate-scale-in">
             {/* Year Banner */}
-            <div className="border-8 border-white p-12 mb-12">
+            <div className="border-8 border-white text-white p-12 mb-12">
               <div className="text-9xl font-black text-white mb-6 uppercase tracking-tighter">
                 {data.year}
               </div>
@@ -65,7 +65,7 @@ Ready for: ${topCompany}
                 <div className="text-xs uppercase tracking-wider font-bold">Problems</div>
                 <div className="text-xs mt-1 opacity-60">{data.year}</div>
               </div>
-              <div className="border-8 border-white p-8">
+              <div className="border-8 border-white text-white p-8">
                 <div className="text-7xl font-black text-white mb-2">{data.summary.activeDays || 0}</div>
                 <div className="text-xs text-mono-light uppercase tracking-wider">Days</div>
                 <div className="text-xs text-mono-gray mt-1">{data.year}</div>
@@ -160,7 +160,7 @@ Ready for: ${topCompany}
             </div>
 
             {/* Copy Text Display */}
-            <div className="border-4 border-white p-6 mb-8 text-left">
+            <div className="border-4 border-white text-white p-6 mb-8 text-left">
               <div className="text-white text-sm font-mono mb-4 uppercase tracking-wider">
                 [ Text Copied to Clipboard ]
               </div>

@@ -34,7 +34,7 @@ function StatsOverviewSlide({ data }) {
           </div>
 
           {/* Active Days Circle Graph */}
-          <div className="border-4 border-white p-12 flex flex-col items-center justify-center">
+          <div className="border-4 border-white text-white p-12 flex flex-col items-center justify-center">
             <div className="relative w-48 h-48 mb-6">
               <svg className="w-full h-full transform -rotate-90">
                 <circle
@@ -74,7 +74,7 @@ function StatsOverviewSlide({ data }) {
           </div>
 
           {/* Streak */}
-          <div className="border-4 border-white p-12 flex flex-col items-center justify-center">
+          <div className="border-4 border-white text-white p-12 flex flex-col items-center justify-center">
             <div className="mb-6">
               {[...Array(Math.min(summary.longestStreak, 20))].map((_, i) => (
                 <span key={i} className="text-3xl">▓</span>
@@ -93,7 +93,7 @@ function StatsOverviewSlide({ data }) {
         </div>
 
         {/* Progress Bar - Year Timeline */}
-        <div className="border-4 border-white p-8">
+        <div className="border-4 border-white text-white p-8">
           <div className="text-center text-white text-xl uppercase tracking-wider mb-4">
             {data.year} Progress
           </div>
