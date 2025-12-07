@@ -2,6 +2,7 @@ function TopicsSlide({ data }) {
   const { topics } = data;
   const topTopics = topics.slice(0, 6);
   const maxCount = topTopics.length > 0 ? topTopics[0].count : 1;
+  const totalProblems = data.summary.totalProblemsThisYear || 1;
 
   return (
     <div className="min-h-screen bg-black flex items-center justify-center p-8">
@@ -16,7 +17,10 @@ function TopicsSlide({ data }) {
         {/* Visual Topic Bars */}
         <div className="space-y-6 mb-12">
           {topTopics.map((topic, index) => {
-            const percentage = (topic.count / maxCount) * 100;
+            // Percentage relative to the top topic for visual bar width
+            const barWidth = (topic.count / maxCount) * 100;
+            // Actual percentage of total problems
+            const actualPercentage = (topic.count / totalProblems) * 100;
             
             return (
               <div
@@ -42,10 +46,10 @@ function TopicsSlide({ data }) {
                 <div className="h-12 bg-mono-darker border-4 border-white relative overflow-hidden">
                   <div
                     className="absolute inset-y-0 left-0 bg-white transition-all duration-1000 flex items-center px-6"
-                    style={{ width: `${percentage}%` }}
+                    style={{ width: `${barWidth}%` }}
                   >
                     <div className="text-black text-xl font-black">
-                      {percentage.toFixed(0)}%
+                      {actualPercentage.toFixed(1)}%
                     </div>
                   </div>
                 </div>

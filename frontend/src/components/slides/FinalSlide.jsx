@@ -160,74 +160,49 @@ Ready for: ${topCompany}
               className="border-8 border-white bg-white text-black p-12 mb-8"
             >
               <div className="space-y-6">
-                {/* Header with scientist */}
-                <div className="border-b-4 border-black pb-6 flex items-center justify-between">
-                  <div>
-                    <div className="text-4xl font-black uppercase tracking-tight mb-2">
-                      MY {data.year} LEETCODE WRAPPED
-                    </div>
-                    <div className="text-xl font-bold opacity-60">
-                      @{data.username}
-                    </div>
+                {/* Header */}
+                <div className="border-b-4 border-black pb-6 text-center">
+                  <div className="text-5xl font-black uppercase tracking-tight mb-2">
+                    MY {data.year} LEETCODE WRAPPED
                   </div>
-                  <ScientistIllustration personality={data.personality?.primary} />
-                </div>
-
-                {/* Stats Grid with Language Illustration */}
-                <div className="grid grid-cols-3 gap-6">
-                  <div className="col-span-2 grid grid-cols-2 gap-6">
-                    <div className="border-4 border-black p-6 text-center">
-                      <div className="text-6xl font-black mb-2">{data.summary.totalProblemsThisYear}</div>
-                      <div className="text-sm uppercase tracking-wider font-bold">Problems Solved</div>
-                    </div>
-                    <div className="border-4 border-black p-6 text-center">
-                      <div className="text-6xl font-black mb-2">{data.summary.activeDays}</div>
-                      <div className="text-sm uppercase tracking-wider font-bold">Active Days</div>
-                    </div>
-                  </div>
-                  
-                  {/* Language Illustration */}
-                  <div className="border-4 border-black p-6 flex flex-col items-center justify-center">
-                    <LanguageIllustration language={data.languages?.[0]?.language} />
-                    <div className="text-xs uppercase tracking-wider font-bold mt-2">
-                      {data.languages?.[0]?.language || 'Code'}
-                    </div>
+                  <div className="text-2xl font-bold opacity-60">
+                    @{data.username}
                   </div>
                 </div>
 
-                {/* Details with Icons */}
-                <div className="border-t-4 border-black pt-6 space-y-4">
-                  <div className="flex items-center gap-4">
-                    <div className="flex-shrink-0">
-                      <StarIllustration />
-                    </div>
-                    <div className="text-xl font-black">
-                      {data.summary.longestStreak} day streak
-                    </div>
+                {/* Stats Grid */}
+                <div className="grid grid-cols-2 gap-6 text-center">
+                  <div className="border-4 border-black p-8">
+                    <div className="text-7xl font-black mb-2">{data.summary.totalProblemsThisYear}</div>
+                    <div className="text-lg uppercase tracking-wider font-bold">Problems Solved</div>
+                  </div>
+                  <div className="border-4 border-black p-8">
+                    <div className="text-7xl font-black mb-2">{data.summary.activeDays}</div>
+                    <div className="text-lg uppercase tracking-wider font-bold">Active Days</div>
+                  </div>
+                </div>
+
+                {/* Details */}
+                <div className="border-t-4 border-black pt-6 space-y-3">
+                  <div className="text-2xl font-black flex items-center gap-3">
+                    <span className="text-4xl">■</span>
+                    {data.summary.longestStreak} day streak
                   </div>
                   
-                  <div className="flex items-center gap-4">
-                    <div className="flex-shrink-0 text-4xl font-black">
-                      {data.personality?.primary?.icon || '▓'}
-                    </div>
-                    <div className="text-xl font-black">
-                      Personality: {personality}
-                    </div>
+                  <div className="text-2xl font-black flex items-center gap-3">
+                    <span className="text-4xl">▓</span>
+                    Personality: {personality}
                   </div>
                   
-                  <div className="flex items-center gap-4">
-                    <div className="flex-shrink-0">
-                      <TrophyIllustration />
-                    </div>
-                    <div className="text-xl font-black">
-                      Ready for: {topCompany}
-                    </div>
+                  <div className="text-2xl font-black flex items-center gap-3">
+                    <span className="text-4xl">▒</span>
+                    Ready for: {topCompany}
                   </div>
                 </div>
 
                 {/* Footer */}
                 <div className="border-t-4 border-black pt-6 text-center">
-                  <div className="text-sm uppercase tracking-widest font-bold opacity-60">
+                  <div className="text-lg uppercase tracking-widest font-bold opacity-60">
                     #LeetCodeWrapped #{data.year} #CodingJourney
                   </div>
                 </div>
