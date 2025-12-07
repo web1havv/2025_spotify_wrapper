@@ -179,17 +179,17 @@ function getFunComparison(user, avg) {
   const ratio = user.problemsPerYear / avg.problemsPerYear;
   
   if (ratio >= 5) {
-    return "🔥 You're coding like there's no tomorrow!";
+    return "█ You're coding like there's no tomorrow!";
   } else if (ratio >= 3) {
-    return "⚡ You're in the fast lane to success!";
+    return "▓ You're in the fast lane to success!";
   } else if (ratio >= 2) {
-    return "🚀 You're crushing it this year!";
+    return "▒ You're crushing it this year!";
   } else if (ratio >= 1.5) {
-    return "💪 You're above average - keep pushing!";
+    return "░ You're above average - keep pushing!";
   } else if (ratio >= 1) {
-    return "📈 You're right on track!";
+    return "■ You're right on track!";
   } else {
-    return "🌱 Every problem solved is progress!";
+    return "□ Every problem solved is progress!";
   }
 }
 

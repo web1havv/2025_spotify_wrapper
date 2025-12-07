@@ -8,6 +8,8 @@ import CompanySlide from './slides/CompanySlide';
 import ActivitySlide from './slides/ActivitySlide';
 import LanguagesSlide from './slides/LanguagesSlide';
 import AchievementsSlide from './slides/AchievementsSlide';
+import ComparisonsSlide from './slides/ComparisonsSlide';
+import InsightsSlide from './slides/InsightsSlide';
 import CareerOverviewSlide from './slides/CareerOverviewSlide';
 import FinalSlide from './slides/FinalSlide';
 
@@ -24,6 +26,8 @@ function WrappedView({ data, onReset }) {
     <ActivitySlide key="activity" data={data} />,
     <LanguagesSlide key="languages" data={data} />,
     <AchievementsSlide key="achievements" data={data} />,
+    <ComparisonsSlide key="comparisons" data={data} />,
+    <InsightsSlide key="insights" data={data} />,
     <CareerOverviewSlide key="career" data={data} />,
     <FinalSlide key="final" data={data} onReset={onReset} />
   ];

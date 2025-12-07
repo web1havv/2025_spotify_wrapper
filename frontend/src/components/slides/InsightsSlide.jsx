@@ -58,7 +58,7 @@ function generateInsights(data) {
   const hours = Math.round(totalMinutes / 60);
   
   insights.push({
-    icon: '⏰',
+    icon: '█',
     value: `${hours}+ hours`,
     label: 'Time invested',
     description: `About ${Math.round(hours / 24)} full days of coding!`
@@ -69,7 +69,7 @@ function generateInsights(data) {
   const totalLines = stats.totalProblemsThisYear * avgLinesPerProblem;
   
   insights.push({
-    icon: '💻',
+    icon: '▓',
     value: `${(totalLines / 1000).toFixed(1)}K+ lines`,
     label: 'Code written',
     description: `That's like writing ${Math.round(totalLines / 500)} novels!`
@@ -79,7 +79,7 @@ function generateInsights(data) {
   const algorithmsLearned = data.topics?.length || 0;
   
   insights.push({
-    icon: '🧠',
+    icon: '▒',
     value: `${algorithmsLearned}+ algorithms`,
     label: 'Techniques mastered',
     description: 'Your algorithm arsenal is growing!'
@@ -88,7 +88,7 @@ function generateInsights(data) {
   // Hard problems insight
   if (difficulty.hard > 0) {
     insights.push({
-      icon: '🔥',
+      icon: '░',
       value: `${difficulty.hard} hard`,
       label: 'Tough challenges conquered',
       description: `You're in the top ${difficulty.hard > 50 ? '5%' : '15%'} of problem solvers!`
@@ -101,7 +101,7 @@ function generateInsights(data) {
     : 0;
   
   insights.push({
-    icon: '📊',
+    icon: '■',
     value: `${consistencyScore}`,
     label: 'Problems per active day',
     description: consistencyScore > 2 ? 'Incredible pace!' : 'Steady progress!'
@@ -110,7 +110,7 @@ function generateInsights(data) {
   // Streak power
   if (stats.longestStreak > 0) {
     insights.push({
-      icon: '⚡',
+      icon: '▪',
       value: `${stats.longestStreak} days`,
       label: 'Longest streak',
       description: stats.longestStreak > 30 ? 'Unstoppable force!' : 'Building momentum!'
