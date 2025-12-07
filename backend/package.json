@@ -1,0 +1,21 @@
+{
+  "name": "leetcode-wrapped-backend",
+  "version": "1.0.0",
+  "description": "Backend API for LeetCode Year Wrapped",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "start": "node server.js"
+  },
+  "keywords": ["leetcode", "wrapped", "api"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1"
+  }
+}
+
