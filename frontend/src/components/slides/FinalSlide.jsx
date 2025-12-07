@@ -35,30 +35,49 @@ Ready for: ${topCompany}
   };
 
   const handleDownloadImage = async () => {
+    if (!shareCardRef.current) {
+      alert('❌ Preview not available. Please try again.');
+      return;
+    }
+    
     setIsGeneratingImage(true);
     
     try {
+      // Small delay to ensure render is complete
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
       // Capture the visible preview card
       const canvas = await html2canvas(shareCardRef.current, {
         backgroundColor: '#ffffff',
         scale: 2,
         logging: false,
+        useCORS: true,
+        allowTaint: true,
       });
       
       // Convert to blob and download
       canvas.toBlob((blob) => {
+        if (!blob) {
+          alert('❌ Error generating image. Please try again.');
+          setIsGeneratingImage(false);
+          return;
+        }
+        
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.download = `leetcode-wrapped-2025-${data.username}.png`;
         link.href = url;
         link.click();
         URL.revokeObjectURL(url);
-        alert('✅ Image downloaded! Upload to LinkedIn 📋');
+        
         setIsGeneratingImage(false);
-      });
+        setTimeout(() => {
+          alert('✅ Image downloaded! Upload to LinkedIn 📋');
+        }, 300);
+      }, 'image/png');
     } catch (error) {
       console.error('Error generating image:', error);
-      alert('❌ Error generating image. Please try again.');
+      alert('❌ Error generating image: ' + error.message);
       setIsGeneratingImage(false);
     }
   };
