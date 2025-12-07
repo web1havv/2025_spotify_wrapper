@@ -1,5 +1,7 @@
 // Vercel Serverless Function with ALL features
 import https from 'https';
+import getCompanyRecommendations from '../../_companies.js';
+import determinePersonalityType from '../../_personality.js';
 
 function makeGraphQLRequest(query, variables) {
   return new Promise((resolve, reject) => {
@@ -58,84 +60,7 @@ function calculateLongestStreak(yearSubmissions) {
   return maxStreak;
 }
 
-// Company recommendations
-function getCompanyRecommendations(topics, totalProblems) {
-  const COMPANIES = {
-    'Google': { topics: ['Dynamic Programming', 'Graph', 'Tree', 'Array'], minProblems: 50 },
-    'Meta': { topics: ['Dynamic Programming', 'Array', 'String', 'Tree'], minProblems: 40 },
-    'Amazon': { topics: ['Array', 'String', 'Tree', 'Dynamic Programming'], minProblems: 40 },
-    'Microsoft': { topics: ['Array', 'String', 'Dynamic Programming', 'Tree'], minProblems: 35 },
-    'Apple': { topics: ['Array', 'String', 'Tree', 'Dynamic Programming'], minProblems: 35 },
-    'Netflix': { topics: ['Dynamic Programming', 'Array', 'String', 'Design'], minProblems: 30 },
-    'Uber': { topics: ['Array', 'Hash Table', 'String', 'Graph'], minProblems: 30 },
-    'ByteDance': { topics: ['Array', 'String', 'Dynamic Programming', 'Graph'], minProblems: 35 },
-    'LinkedIn': { topics: ['Hash Table', 'Array', 'String', 'Design'], minProblems: 30 },
-    'Airbnb': { topics: ['Array', 'String', 'Design', 'Backtracking'], minProblems: 30 }
-  };
-  
-  const userTopics = topics.map(t => t.name);
-  const recommendations = [];
-
-  for (const [company, data] of Object.entries(COMPANIES)) {
-    const matchedTopics = data.topics.filter(companyTopic => 
-      userTopics.some(userTopic => 
-        userTopic.toLowerCase().includes(companyTopic.toLowerCase()) ||
-        companyTopic.toLowerCase().includes(userTopic.toLowerCase())
-      )
-    );
-
-    const matchPercentage = (matchedTopics.length / data.topics.length) * 100;
-    const meetsThreshold = totalProblems >= data.minProblems;
-    const score = matchPercentage * (meetsThreshold ? 1 : 0.7);
-
-    if (matchPercentage >= 25) {
-      recommendations.push({
-        company,
-        matchPercentage: Math.round(matchPercentage),
-        matchedTopics,
-        meetsThreshold,
-        score
-      });
-    }
-  }
-
-  recommendations.sort((a, b) => b.score - a.score);
-  return recommendations.slice(0, 5);
-}
-
-// Personality types
-function determinePersonalityType(data) {
-  const TYPES = {
-    'donald-knuth': { name: 'Donald Knuth', title: 'Algorithm Perfectionist', field: 'Algorithms', icon: '█' },
-    'grace-hopper': { name: 'Grace Hopper', title: 'Practical Pioneer', field: 'Compilers', icon: '█' },
-    'alan-turing': { name: 'Alan Turing', title: 'Theoretical Mastermind', field: 'Theory', icon: '█' },
-    'edsger-dijkstra': { name: 'Edsger Dijkstra', title: 'Elegant Solver', field: 'Graph Theory', icon: '█' },
-    'ada-lovelace': { name: 'Ada Lovelace', title: 'Visionary Programmer', field: 'Early Computing', icon: '▓' }
-  };
-  
-  const { difficulty, topics } = data;
-  const totalProblems = difficulty.all || 0;
-  const hardPercentage = totalProblems > 0 ? (difficulty.hard / totalProblems) * 100 : 0;
-  
-  const topicNames = topics.slice(0, 3).map(t => t.name.toLowerCase());
-  const hasGraph = topicNames.some(t => t.includes('graph') || t.includes('tree'));
-  const hasDp = topicNames.some(t => t.includes('dynamic'));
-  
-  let scores = {
-    'donald-knuth': totalProblems > 500 ? 50 : 20,
-    'grace-hopper': totalProblems >= 200 && totalProblems <= 500 ? 50 : 20,
-    'alan-turing': hardPercentage > 30 ? 60 : 20,
-    'edsger-dijkstra': hasGraph ? 60 : 20,
-    'ada-lovelace': hasDp ? 50 : 30
-  };
-  
-  const sortedTypes = Object.entries(scores).sort((a, b) => b[1] - a[1]);
-  const topType = sortedTypes[0][0];
-  
-  return {
-    primary: TYPES[topType]
-  };
-}
+// Companies and personality are imported from external modules
 
 // Generate facts
 function generateFacts(data) {
